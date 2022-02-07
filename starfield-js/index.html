@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="css/starfield.css" rel="stylesheet"/>
+	</head>
+	<body>
+
+		<div id="sf-root">
+			<div id="sf-panel">
+
+				<div id="sf-description">
+					This uses the HTML5 canvas 2D renderer.<br/>
+					You specify the goal frame rate and your browser will<br/>
+					try its best to draw an amount of stars to match that.<br/>
+					Basically more stars = less fps; less stars = more fps.
+				</div>
+
+				<!-- ko foreach: {data: [$root.stats], as: '$stat'} -->
+				<div id="sf-stats">
+					<div id="sf-drawn-stars">Drawn: <span data-bind="text: $stat.drawnStars"></span></div>
+					<div id="sf-buffered-stars">Buffered: <span data-bind="text: $stat.bufferedStars"></span></div>
+					<div id="sf-fps">FPS: <span data-bind="text: $stat.actualFPS"></span></div>
+				</div>
+				<!-- /ko -->
+
+				<!-- ko foreach: {data: [$root.settings], as: '$set'} -->
+				<div id="sf-settings">
+					<div id="sf-setting-colorful">
+						<button data-bind="
+							css: { colorful: $set.colorful() },
+							click: function(){ $set.colorful(!$set.colorful()) },
+							text: ($set.colorful() ? 'Remove' : 'Add') + ' Color Trails'"></button>
+					</div>
+					<!-- ko foreach: {data: [$set.goalFPS], as: 'f'} -->
+					<div id="sf-setting-fps">
+						<div>Goal Frame Rate: <span data-bind="text: f.val"></span> / <span data-bind="text: f.max"></span></div>
+						<div><input type="range" data-bind="value: f.val, valueUpdate: 'input', attr: { min: f.min, max: f.max, step: f.step }" /></div>
+					</div>
+					<!-- /ko -->
+					<!-- ko foreach: {data: [$set.acceleration], as: 'a'} -->
+					<div id="sf-setting-acceleration">
+						<div>Acceleration: <span data-bind="text: a.val"></span> / <span data-bind="text: a.max"></span></div>
+						<div><input type="range" data-bind="value: a.val, valueUpdate: 'input', attr: { min: a.min, max: a.max, step: a.step }" /></div>
+					</div>
+					<!-- /ko -->
+					<!-- ko foreach: {data: [$set.proximity], as: 'p'} -->
+					<div id="sf-setting-proximity">
+						<div>Star Proximity: <span data-bind="text: p.val"></span> / <span data-bind="text: p.max"></span></div>
+						<div><input type="range" data-bind="value: p.val, valueUpdate: 'input', attr: { min: p.min, max: p.max, step: p.step }" /></div>
+					</div>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+			</div>
+
+			<canvas id="sf-star-canvas"></canvas>
+		</div>
+
+		<script src="js/vendor/knockout-3.4.0.js"></script>
+
+		<script src="js/starfield.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				StarField.start();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+
+#sf-root {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#sf-panel {
+	position: absolute;
+	background: rgba(255, 255, 255, 0.7);
+	padding: 10px;
+}
+
+#sf-stats {
+	margin-top: 10px;
+}
+#sf-settings {
+	margin-top: 10px;
+}
+
+#sf-setting-colorful button {
+	color: #ffffff;
+	background-color: #05AFEC;
+}
+#sf-setting-colorful button.colorful {
+	color: #000000;
+	background-color: #ffffff;
+}
